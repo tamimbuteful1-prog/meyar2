@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#07111f" />
+<title>معيار — العرض التقديمي في خمس شرائح</title>
+<style>
+  :root{
+    --bg:#07111f;
+    --bg2:#0b1929;
+    --card:#102338;
+    --card2:#0d1d2f;
+    --line:rgba(255,255,255,.10);
+    --text:#f7fafc;
+    --muted:#9fb0c3;
+    --teal:#22d3b6;
+    --teal2:#72f0d9;
+    --gold:#f2b84b;
+    --red:#ff6b6b;
+    --green:#3ddc97;
+    --shadow:0 28px 80px rgba(0,0,0,.32);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"IBM Plex Sans Arabic","Noto Kufi Arabic","Segoe UI",Tahoma,Arial,sans-serif;
+    overflow-x:hidden;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-2;
+    background:
+      radial-gradient(circle at 85% 10%, rgba(34,211,182,.13), transparent 29%),
+      radial-gradient(circle at 12% 82%, rgba(242,184,75,.10), transparent 30%),
+      linear-gradient(145deg,#07111f 0%,#091827 48%,#06101c 100%);
+  }
+
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+    opacity:.22;
+    background-image:
+      linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:42px 42px;
+    mask-image:linear-gradient(to bottom,rgba(0,0,0,.85),transparent);
+  }
+
+  .brand{
+    position:fixed;
+    top:22px;
+    right:34px;
+    z-index:30;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    color:white;
+    text-decoration:none;
+  }
+  .brand-mark{
+    width:42px;height:42px;
+    border-radius:13px;
+    display:grid;place-items:center;
+    color:#06141d;
+    background:linear-gradient(135deg,var(--teal2),var(--teal));
+    box-shadow:0 10px 28px rgba(34,211,182,.20);
+    font-weight:900;
+    font-size:20px;
+  }
+  .brand strong{font-size:18px}
+  .brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+
+  .progress{
+    position:fixed;
+    left:30px;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:30;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .progress a{
+    width:10px;height:10px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.40);
+    background:transparent;
+    transition:.25s;
+  }
+  .progress a.active{
+    height:30px;border-radius:10px;
+    background:var(--teal);
+    border-color:var(--teal);
+    box-shadow:0 0 18px rgba(34,211,182,.55);
+  }
+
+  .counter{
+    position:fixed;
+    bottom:25px;
+    left:30px;
+    z-index:30;
+    font-weight:800;
+    letter-spacing:2px;
+    color:var(--muted);
+  }
+  .counter span{color:var(--teal);font-size:23px}
+
+  .slide{
+    min-height:100vh;
+    scroll-snap-align:start;
+    position:relative;
+    display:flex;
+    align-items:center;
+    padding:95px 7vw 70px;
+    overflow:hidden;
+  }
+  .slide-inner{
+    width:min(1380px,100%);
+    margin:auto;
+    position:relative;
+    z-index:2;
+  }
+
+  .orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(2px);
+    opacity:.35;
+    pointer-events:none;
+  }
+  .orb.one{width:340px;height:340px;top:-150px;left:-120px;background:radial-gradient(circle,var(--teal),transparent 68%)}
+  .orb.two{width:280px;height:280px;bottom:-140px;right:-90px;background:radial-gradient(circle,var(--gold),transparent 68%)}
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    color:var(--teal2);
+    border:1px solid rgba(34,211,182,.25);
+    background:rgba(34,211,182,.07);
+    border-radius:999px;
+    padding:8px 15px;
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:18px;
+  }
+  .eyebrow b{
+    color:#06141d;
+    background:var(--teal);
+    padding:3px 8px;
+    border-radius:99px;
+  }
+  h1,h2,h3,p{margin-top:0}
+  h1,h2{
+    font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",Tahoma,sans-serif;
+    letter-spacing:-1.3px;
+  }
+  h1{font-size:clamp(40px,5.4vw,82px);line-height:1.25;margin-bottom:22px}
+  h2{font-size:clamp(35px,4.2vw,64px);line-height:1.28;margin-bottom:18px}
+  .lead{font-size:clamp(18px,1.65vw,26px);line-height:1.9;color:var(--muted);max-width:1040px}
+  .highlight{color:var(--teal2)}
+  .gold{color:var(--gold)}
+
+  .grid-2{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center}
+  .grid-even{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:stretch}
+  .stack{display:grid;gap:16px}
+
+  .card{
+    background:linear-gradient(145deg,rgba(16,35,56,.94),rgba(10,27,44,.90));
+    border:1px solid var(--line);
+    border-radius:24px;
+    box-shadow:var(--shadow);
+  }
+  .problem-card{padding:25px 25px 24px;display:flex;gap:16px;align-items:flex-start}
+  .problem-icon{
+    width:48px;height:48px;min-width:48px;border-radius:15px;
+    display:grid;place-items:center;
+    background:rgba(255,107,107,.10);color:var(--red);font-size:22px;
+    border:1px solid rgba(255,107,107,.16);
+  }
+  .problem-card h3{font-size:18px;margin:2px 0 7px}
+  .problem-card p{color:var(--muted);line-height:1.7;margin:0;font-size:14px}
+
+  .target-box{
+    margin-top:22px;
+    padding:20px 22px;
+    border-radius:22px;
+    border:1px solid rgba(242,184,75,.22);
+    background:rgba(242,184,75,.055);
+  }
+  .target-box strong{display:block;color:var(--gold);margin-bottom:12px}
+  .chips{display:flex;gap:9px;flex-wrap:wrap}
+  .chip{
+    padding:8px 13px;border-radius:999px;
+    color:#eaf3f7;background:rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.10);
+    font-size:13px;font-weight:700;
+  }
+
+  .quote{
+    padding:42px;
+    border-radius:30px;
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 92% 10%,rgba(34,211,182,.18),transparent 35%),
+      linear-gradient(145deg,rgba(16,35,56,.98),rgba(9,25,41,.96));
+    border:1px solid rgba(34,211,182,.22);
+    box-shadow:var(--shadow);
+  }
+  .quote::before{
+    content:"«";
+    position:absolute;left:22px;top:-32px;
+    color:rgba(34,211,182,.12);
+    font-family:Georgia,serif;font-size:220px;line-height:1;
+  }
+  .quote p{
+    position:relative;
+    font-size:clamp(25px,2.65vw,43px);
+    line-height:1.8;
+    font-weight:800;
+    margin:0;
+  }
+  .tagline{
+    margin-top:26px;
+    display:inline-flex;align-items:center;gap:12px;
+    color:var(--gold);font-weight:900;font-size:18px;
+  }
+  .tagline i{width:38px;height:2px;background:var(--gold);display:inline-block}
+
+  .flow{
+    margin-top:32px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    align-items:center;
+  }
+  .flow-item{
+    min-height:116px;padding:18px 12px;
+    border-radius:19px;text-align:center;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  }
+  .flow-icon{
+    width:42px;height:42px;border-radius:13px;
+    display:grid;place-items:center;
+    background:rgba(34,211,182,.10);color:var(--teal2);font-size:20px;
+  }
+  .flow-item strong{font-size:13px}
+  .flow-item.main{
+    border-color:rgba(242,184,75,.35);
+    background:rgba(242,184,75,.07);
+  }
+  .flow-item.main .flow-icon{background:rgba(242,184,75,.15);color:var(--gold)}
+
+  .browser{
+    border-radius:27px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.11);
+    background:#08131f;
+    box-shadow:0 35px 100px rgba(0,0,0,.48);
+  }
+  .browser-top{
+    height:47px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 18px;
+    background:#0e2135;border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .browser-dots{display:flex;gap:7px}
+  .browser-dots span{width:9px;height:9px;border-radius:50%;background:#516175}
+  .browser-dots span:first-child{background:#ff6b6b}
+  .browser-dots span:nth-child(2){background:#f2b84b}
+  .browser-dots span:nth-child(3){background:#3ddc97}
+  .address{
+    width:46%;height:25px;border-radius:8px;
+    background:rgba(255,255,255,.055);
+    color:#73869a;font-size:10px;
+    display:grid;place-items:center;
+  }
+  .browser-body{display:grid;grid-template-columns:180px 1fr;min-height:475px}
+  .sidebar{
+    padding:20px 15px;background:#0b1b2d;border-left:1px solid rgba(255,255,255,.07)
+  }
+  .side-logo{font-weight:900;color:var(--teal2);font-size:17px;margin:4px 7px 22px}
+  .side-item{
+    padding:11px;border-radius:10px;color:#8396a9;font-size:12px;margin-bottom:6px;
+  }
+  .side-item.active{background:rgba(34,211,182,.11);color:var(--teal2)}
+  .screen{padding:22px}
+  .screen-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
+  .screen-head h3{font-size:16px;margin:0}
+  .credits{font-size:10px;color:var(--gold);background:rgba(242,184,75,.10);padding:7px 10px;border-radius:99px}
+  .upload-box{
+    border:1px dashed rgba(34,211,182,.34);
+    background:rgba(34,211,182,.035);
+    border-radius:16px;padding:18px;text-align:center;color:#8093a6;font-size:11px;margin-bottom:15px;
+  }
+  .report{
+    display:grid;grid-template-columns:120px 1fr;gap:14px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:17px;padding:15px;background:rgba(255,255,255,.025)
+  }
+  .risk{
+    border-radius:15px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.16)
+  }
+  .risk b{font-size:34px;color:var(--red)}
+  .risk small{font-size:9px;color:#f4a3a3}
+  .warnings{display:grid;gap:8px}
+  .warning{
+    padding:9px 10px;border-radius:9px;background:rgba(255,255,255,.035);
+    color:#c8d3de;font-size:10px;display:flex;gap:8px;align-items:center
+  }
+  .warning::before{content:"!";display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:rgba(255,107,107,.14);color:var(--red);font-weight:900}
+  .safe-copy{
+    margin-top:12px;padding:12px;border-radius:12px;
+    background:rgba(61,220,151,.06);border:1px solid rgba(61,220,151,.13);
+    color:#98dac0;font-size:10px;line-height:1.7
+  }
+  .feature-row{
+    margin-top:21px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px
+  }
+  .mini{
+    padding:16px 10px;text-align:center;border-radius:16px;
+    border:1px solid var(--line);background:rgba(255,255,255,.035)
+  }
+  .mini b{display:block;color:var(--teal2);font-size:17px;margin-bottom:5px}
+  .mini span{font-size:11px;color:var(--muted)}
+
+  .pillar{padding:25px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.035)}
+  .pillar-head{display:flex;gap:13px;align-items:center;margin-bottom:14px}
+  .pillar-num{
+    width:40px;height:40px;border-radius:13px;display:grid;place-items:center;
+    font-weight:900;color:#06141d;background:var(--teal)
+  }
+  .pillar h3{font-size:17px;margin:0}
+  .pillar p{margin:0;color:var(--muted);font-size:13px;line-height:1.8}
+
+  .pipeline{
+    position:relative;padding:27px;border-radius:27px;
+    background:linear-gradient(145deg,rgba(16,35,56,.96),rgba(9,25,41,.92));
+    border:1px solid rgba(34,211,182,.18);box-shadow:var(--shadow)
+  }
+  .pipeline h3{font-size:20px;margin-bottom:22px}
+  .pipe-step{
+    display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;
+    position:relative;padding-bottom:20px
+  }
+  .pipe-step:not(:last-child)::after{
+    content:"";position:absolute;right:21px;top:44px;width:2px;height:calc(100% - 35px);
+    background:linear-gradient(var(--teal),rgba(34,211,182,.08))
+  }
+  .pipe-num{
+    width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
+    font-weight:900;color:var(--teal2);background:rgba(34,211,182,.10);
+    border:1px solid rgba(34,211,182,.18);z-index:2
+  }
+  .pipe-step h4{font-size:15px;margin:3px 0 4px}
+  .pipe-step p{font-size:12px;color:var(--muted);line-height:1.65;margin:0}
+  .human-note{
+    margin-top:10px;padding:15px 17px;border-radius:16px;
+    color:#ffe1a6;background:rgba(242,184,75,.075);border:1px solid rgba(242,184,75,.17);
+    font-size:13px;font-weight:800
+  }
+
+  .revenue-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:26px}
+  .revenue{
+    padding:20px;border-radius:20px;
+    border:1px solid var(--line);background:rgba(255,255,255,.035);
+    min-height:155px
+  }
+  .revenue .icon{
+    width:42px;height:42px;border-radius:13px;
+    display:grid;place-items:center;
+    color:var(--gold);background:rgba(242,184,75,.10);
+    margin-bottom:14px;font-size:20px
+  }
+  .revenue h3{font-size:16px;margin:0 0 8px}
+  .revenue p{font-size:12px;color:var(--muted);line-height:1.75;margin:0}
+
+  .roadmap{
+    margin-top:30px;padding:25px 28px;border-radius:24px;
+    border:1px solid rgba(34,211,182,.18);
+    background:linear-gradient(90deg,rgba(34,211,182,.06),rgba(255,255,255,.025),rgba(242,184,75,.05))
+  }
+  .roadmap-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .roadmap-title h3{font-size:18px;margin:0}
+  .roadmap-title span{color:var(--teal2);font-size:12px;font-weight:800}
+  .roadmap-line{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative
+  }
+  .roadmap-line::before{
+    content:"";position:absolute;right:12%;left:12%;top:15px;height:2px;
+    background:linear-gradient(90deg,var(--gold),var(--teal))
+  }
+  .road-step{position:relative;padding-top:37px}
+  .road-step::before{
+    content:"";position:absolute;top:7px;right:0;width:16px;height:16px;border-radius:50%;
+    background:var(--teal);box-shadow:0 0 0 6px rgba(34,211,182,.10)
+  }
+  .road-step:nth-child(2)::before{background:var(--teal2)}
+  .road-step:nth-child(3)::before{background:var(--gold);box-shadow:0 0 0 6px rgba(242,184,75,.10)}
+  .road-step b{display:block;font-size:14px;margin-bottom:5px}
+  .road-step span{font-size:11px;color:var(--muted);line-height:1.6}
+
+  .closing{
+    margin-top:24px;
+    color:white;font-weight:900;font-size:clamp(20px,2.1vw,31px);
+  }
+
+  .next{
+    position:absolute;
+    bottom:23px;right:50%;
+    transform:translateX(50%);
+    z-index:4;
+    color:#93a7b9;text-decoration:none;font-size:11px;
+    display:flex;flex-direction:column;align-items:center;gap:6px
+  }
+  .next::after{
+    content:"⌄";font-size:23px;color:var(--teal);
+    animation:bounce 1.7s infinite
+  }
+  @keyframes bounce{50%{transform:translateY(7px)}}
+
+  @media (max-width:980px){
+    .slide{padding:100px 7vw 72px}
+    .grid-2,.grid-even{grid-template-columns:1fr;gap:25px}
+    .stack{grid-template-columns:repeat(3,1fr)}
+    .problem-card{display:block}
+    .problem-icon{margin-bottom:12px}
+    .flow{grid-template-columns:repeat(3,1fr)}
+    .browser-body{grid-template-columns:130px 1fr}
+    .feature-row,.revenue-grid{grid-template-columns:repeat(2,1fr)}
+    .progress{left:14px}
+    .counter{left:15px}
+  }
+
+  @media (max-width:620px){
+    html{scroll-snap-type:y proximity}
+    .brand{right:18px;top:16px}
+    .brand small{display:none}
+    .progress{display:none}
+    .counter{bottom:10px}
+    .slide{padding:88px 18px 60px;align-items:flex-start}
+    h1{font-size:37px}
+    h2{font-size:33px}
+    .lead{font-size:17px}
+    .stack{grid-template-columns:1fr}
+    .quote{padding:27px 21px}
+    .quote p{font-size:23px}
+    .flow{grid-template-columns:repeat(2,1fr)}
+    .flow-item.main{grid-column:span 2}
+    .browser-body{display:block}
+    .sidebar{display:none}
+    .browser-body{min-height:auto}
+    .report{grid-template-columns:1fr}
+    .risk{padding:12px}
+    .feature-row,.revenue-grid{grid-template-columns:1fr 1fr}
+    .roadmap-line{grid-template-columns:1fr}
+    .roadmap-line::before{display:none}
+    .road-step{padding-top:0;padding-right:30px}
+    .road-step::before{top:4px}
+  }
+
+  @media print{
+    html{scroll-snap-type:none}
+    body{background:#07111f;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .slide{height:100vh;min-height:100vh;page-break-after:always}
+    .brand,.progress,.counter,.next{display:none}
+  }
+</style>
+</head>
+<body>
+
+<a class="brand" href="#s1" aria-label="معيار">
+  <span class="brand-mark">م</span>
+  <span><strong>معيار</strong><small>إدارتك الإعلامية الذكية</small></span>
+</a>
+
+<nav class="progress" aria-label="التنقل بين الشرائح">
+  <a href="#s1" class="active" aria-label="الشريحة الأولى"></a>
+  <a href="#s2" aria-label="الشريحة الثانية"></a>
+  <a href="#s3" aria-label="الشريحة الثالثة"></a>
+  <a href="#s4" aria-label="الشريحة الرابعة"></a>
+  <a href="#s5" aria-label="الشريحة الخامسة"></a>
+</nav>
+<div class="counter"><span id="current">01</span> / 05</div>
+
+<!-- الشريحة 1 -->
+<section class="slide" id="s1">
+  <span class="orb one"></span><span class="orb two"></span>
+  <div class="slide-inner grid-2">
+    <div>
+      <div class="eyebrow"><b>01</b> التحدي والفئة المستهدفة</div>
+      <h1>كل إعلامي بلا إدارة متخصصة… <span class="highlight">ينشر تحت ضغط المخاطرة.</span></h1>
+      <p class="lead">
+        المحتوى قد يحقق انتشارًا كبيرًا، لكنه قد يخالف نظامًا، أو بندًا في عقد،
+        أو يخرج عن هوية صاحبه—بينما تبقى الإدارة الإعلامية والقانونية المتخصصة مرتفعة التكلفة.
+      </p>
+      <div class="target-box">
+        <strong>الفئة المستهدفة</strong>
+        <div class="chips">
+          <span class="chip">الإعلاميون</span>
+          <span class="chip">صنّاع المحتوى</span>
+          <span class="chip">المؤثرون</span>
+          <span class="chip">الشخصيات العامة</span>
+          <span class="chip">من لا يملك إدارة إعلامية خاصة</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card problem-card">
+        <div class="problem-icon">⚠</div>
+        <div><h3>مخالفات قبل أن تُلاحظ</h3><p>أنظمة، سياسات منصات، حقوق ملكية، وإفصاحات إعلانية قد تُفقد وسط سرعة النشر.</p></div>
+      </div>
+      <div class="card problem-card">
+        <div class="problem-icon">⌁</div>
+        <div><h3>هوية إعلامية مشتتة</h3><p>اختلاف النبرة والرسائل بين المنصات يضعف الثقة ويشوّش صورة الإعلامي أو المشروع.</p></div>
+      </div>
+      <div class="card problem-card">
+        <div class="problem-icon">◫</div>
+        <div><h3>عقود والتزامات معقدة</h3><p>الحصرية، الموافقات، استخدام الشعار، وتعارض المصالح تحتاج مراجعة قبل كل محتوى.</p></div>
+      </div>
+    </div>
+  </div>
+  <a class="next" href="#s2">التالي</a>
+</section>
+
+<!-- الشريحة 2 -->
+<section class="slide" id="s2">
+  <span class="orb one"></span><span class="orb two"></span>
+  <div class="slide-inner">
+    <div class="eyebrow"><b>02</b> الفكرة والحل في جملة واحدة</div>
+    <div class="quote">
+      <p>
+        <span class="highlight">معيار</span> منصة إدارة إعلامية ذكية تفحص النصوص والصور والصوت والفيديو قبل النشر،
+        وتقارنها بهوية المستخدم وعقوده والأنظمة وسياسات المنصات، مع إمكانية التصعيد إلى
+        <span class="gold">مستشار بشري</span>—وبتكلفة حسب الاستخدام.
+      </p>
+    </div>
+    <div class="tagline"><i></i> قبل أن تنشر، مرّر المحتوى على معيار.</div>
+
+    <div class="flow">
+      <div class="flow-item"><span class="flow-icon">ن</span><strong>نصوص</strong></div>
+      <div class="flow-item"><span class="flow-icon">▧</span><strong>صور</strong></div>
+      <div class="flow-item"><span class="flow-icon">◉</span><strong>صوت وفيديو</strong></div>
+      <div class="flow-item main"><span class="flow-icon">م</span><strong>محرك معيار</strong></div>
+      <div class="flow-item"><span class="flow-icon">✓</span><strong>تقرير واضح قبل النشر</strong></div>
+    </div>
+  </div>
+  <a class="next" href="#s3">التالي</a>
+</section>
+
+<!-- الشريحة 3 -->
+<section class="slide" id="s3">
+  <span class="orb one"></span><span class="orb two"></span>
+  <div class="slide-inner">
+    <div class="eyebrow"><b>03</b> لمحة من النموذج الأولي</div>
+    <div class="grid-2">
+      <div>
+        <h2>من رفع المحتوى… إلى <span class="highlight">قرار نشر مفهوم.</span></h2>
+        <p class="lead">
+          لا يعرض النموذج إجابة عامة؛ بل تقرير مراجعة منظم يوضح الخطر،
+          سبب التنبيه، البند المتأثر، والتعديل المقترح.
+        </p>
+
+        <div class="feature-row">
+          <div class="mini"><b>01</b><span>بصمة إعلامية شخصية</span></div>
+          <div class="mini"><b>02</b><span>تحليل العقود والالتزامات</span></div>
+          <div class="mini"><b>03</b><span>فحص متعدد الوسائط</span></div>
+          <div class="mini"><b>04</b><span>استهلاك بالكريدت</span></div>
+        </div>
+      </div>
+
+      <div class="browser" aria-label="نموذج واجهة منصة معيار">
+        <div class="browser-top">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="address">app.meyar.sa/check</div>
+          <span style="font-size:10px;color:#6d8296">معيار</span>
+        </div>
+        <div class="browser-body">
+          <aside class="sidebar">
+            <div class="side-logo">معيار</div>
+            <div class="side-item active">مركز الفحص</div>
+            <div class="side-item">بصمتي الإعلامية</div>
+            <div class="side-item">العقود</div>
+            <div class="side-item">الترندات</div>
+            <div class="side-item">التقارير</div>
+          </aside>
+          <main class="screen">
+            <div class="screen-head"><h3>تقرير امتثال المحتوى</h3><span class="credits">الرصيد: 240 كريدت</span></div>
+            <div class="upload-box">تم تحليل فيديو إعلاني · 00:42 ثانية · منصة Instagram</div>
+            <div class="report">
+              <div class="risk"><b>72%</b><small>خطورة مرتفعة</small></div>
+              <div>
+                <div class="warnings">
+                  <div class="warning">إفصاح إعلاني غير واضح في بداية المحتوى.</div>
+                  <div class="warning">تعارض محتمل مع بند الحصرية في العقد.</div>
+                  <div class="warning">صياغة تتضمن وعدًا تسويقيًا مبالغًا فيه.</div>
+                </div>
+                <div class="safe-copy"><b>الصياغة المقترحة:</b> استبدال الوعد القطعي بوصف دقيق، وإضافة الإفصاح الإعلاني قبل عرض المنتج.</div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="next" href="#s4">التالي</a>
+</section>
+
+<!-- الشريحة 4 -->
+<section class="slide" id="s4">
+  <span class="orb one"></span><span class="orb two"></span>
+  <div class="slide-inner">
+    <div class="eyebrow"><b>04</b> استراتيجية المحتوى والذكاء الاصطناعي</div>
+    <div class="grid-even">
+      <div>
+        <h2>نُعلّم الجمهور… ثم نجعله <span class="highlight">يجرّب الحل.</span></h2>
+        <div class="stack">
+          <div class="pillar">
+            <div class="pillar-head"><span class="pillar-num">1</span><h3>محتوى توعوي</h3></div>
+            <p>أخطاء النشر، المخالفات المحتملة، الخصوصية، وحقوق الملكية الفكرية.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-head"><span class="pillar-num">2</span><h3>محتوى تعليمي</h3></div>
+            <p>كيف يبني الإعلامي هويته، يراجع عقده، ويصنع محتوى أكثر أمانًا واحترافية.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-head"><span class="pillar-num">3</span><h3>حالات واقعية وتحديثات</h3></div>
+            <p>قبل/بعد، تفسير قرارات الفحص، ومستجدات الأنظمة وسياسات المنصات والترندات.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipeline">
+        <h3>كيف يعمل الذكاء الاصطناعي داخل معيار؟</h3>
+        <div class="pipe-step"><span class="pipe-num">1</span><div><h4>استخراج المحتوى</h4><p>قراءة النص، تفريغ الصوت، واكتشاف النصوص والعناصر الظاهرة في الصور والفيديو.</p></div></div>
+        <div class="pipe-step"><span class="pipe-num">2</span><div><h4>فهم السياق الخاص</h4><p>مقارنة المحتوى بالبصمة الإعلامية والعقود والالتزامات المخزنة للمستخدم.</p></div></div>
+        <div class="pipe-step"><span class="pipe-num">3</span><div><h4>فحص الامتثال</h4><p>مطابقة المحتوى مع الأنظمة واللوائح وسياسات المنصة وحقوق الملكية.</p></div></div>
+        <div class="pipe-step"><span class="pipe-num">4</span><div><h4>تقرير قابل للتنفيذ</h4><p>مؤشر خطورة، أسباب واضحة، نصوص بديلة، وتوصيات قبل النشر.</p></div></div>
+        <div class="human-note">الذكاء الاصطناعي يسرّع المراجعة، والمختص البشري يحسم الحالات الحساسة والمعقدة.</div>
+      </div>
+    </div>
+  </div>
+  <a class="next" href="#s5">التالي</a>
+</section>
+
+<!-- الشريحة 5 -->
+<section class="slide" id="s5">
+  <span class="orb one"></span><span class="orb two"></span>
+  <div class="slide-inner">
+    <div class="eyebrow"><b>05</b> الاستدامة ومدى الفكرة</div>
+    <h2>نموذج دخل متنوع… وفكرة تتوسع من <span class="highlight">الفحص</span> إلى <span class="gold">إدارة إعلامية كاملة.</span></h2>
+
+    <div class="revenue-grid">
+      <div class="revenue"><div class="icon">★</div><h3>اشتراكان واضحان</h3><p><b>Premium</b> للمحترفين، و<b>خاص</b> للشركات والإعلاميين والمؤثرين وكبار الشخصيات.</p></div>
+      <div class="revenue"><div class="icon">◈</div><h3>شراء الكريدت</h3><p>الدفع بحسب نوع المحتوى، حجمه، مدته، وعدد طبقات الفحص المستخدمة.</p></div>
+      <div class="revenue"><div class="icon">⚖</div><h3>مراجعة واستشارات بشرية</h3><p>مستشارون إعلاميون وقانونيون داخل المنصة للحالات المتخصصة والمعقدة.</p></div>
+      <div class="revenue"><div class="icon">◆</div><h3>فريق إدارة خاص</h3><p>عقود لإدارة الأعمال والشراكات والعقود والظهور الإعلامي والمحتوى.</p></div>
+    </div>
+
+    <div class="roadmap">
+      <div class="roadmap-title"><h3>مسار التوسع</h3><span>من نموذج أولي إلى بنية إعلامية ذكية</span></div>
+      <div class="roadmap-line">
+        <div class="road-step"><b>الآن — النموذج التشغيلي</b><span>فحص متعدد الوسائط، بصمة إعلامية، عقود، تقارير، كريدت، ومراجعة بشرية.</span></div>
+        <div class="road-step"><b>المرحلة التالية</b><span>مرصد الهاشتاقات والترندات، تحديثات تشريعية، وأكاديمية تعليمية مخصصة.</span></div>
+        <div class="road-step"><b>المدى البعيد</b><span>تكامل مع منصات النشر، خدمات للفرق والمؤسسات، وواجهات ربط للشركاء.</span></div>
+      </div>
+    </div>
+
+    <div class="closing">معيار: يفهمك، يراجعك، يحميك، ثم يساعدك على النشر بثقة.</div>
+  </div>
+</section>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const dots = [...document.querySelectorAll('.progress a')];
+  const current = document.getElementById('current');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting && entry.intersectionRatio > .55){
+        const index = slides.indexOf(entry.target);
+        dots.forEach((dot,i)=>dot.classList.toggle('active',i===index));
+        current.textContent = String(index+1).padStart(2,'0');
+        history.replaceState(null,'','#s'+(index+1));
+      }
+    });
+  }, {threshold:[.55,.7]});
+  slides.forEach(s=>observer.observe(s));
+
+  document.addEventListener('keydown', e=>{
+    const active = dots.findIndex(d=>d.classList.contains('active'));
+    if(['ArrowDown','PageDown','ArrowLeft',' '].includes(e.key)){
+      e.preventDefault();
+      slides[Math.min(active+1,slides.length-1)].scrollIntoView({behavior:'smooth'});
+    }
+    if(['ArrowUp','PageUp','ArrowRight'].includes(e.key)){
+      e.preventDefault();
+      slides[Math.max(active-1,0)].scrollIntoView({behavior:'smooth'});
+    }
+    if(e.key==='Home') slides[0].scrollIntoView({behavior:'smooth'});
+    if(e.key==='End') slides.at(-1).scrollIntoView({behavior:'smooth'});
+  });
+</script>
+</body>
+</html>
+    
+  </body>
+  
+</html>

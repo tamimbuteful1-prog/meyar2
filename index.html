@@ -655,6 +655,32 @@
     z-index: 1;
   }
 
+  .final-project-link-wrap {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 26px;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+  }
+
+  .final-project-button {
+    padding: 15px 38px;
+    font-size: 1rem;
+  }
+
+  #slide-6 {
+    padding-bottom: 125px;
+  }
+
+  @media (max-width: 768px) {
+    .final-project-link-wrap { bottom: 20px; }
+    .final-project-button { width: min(100%, 330px); justify-content: center; }
+    #slide-6 { padding-bottom: 120px; }
+  }
+
   /* === شريط التنقل الجانبي === */
   .slide-nav {
     position: fixed;
@@ -836,29 +862,9 @@
     box-shadow: 0 0 10px var(--glow-blue);
   }
 
-  /* === تأثير حدود متوهجة === */
+  /* تم حذف تأثير المربع الأخضر والأزرق الدوّار بالكامل */
   .glow-border {
     position: relative;
-  }
-
-  .glow-border::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 21px;
-    background: conic-gradient(from 0deg, transparent, var(--blue-light), transparent, var(--green-accent), transparent);
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    animation: borderRotate 4s linear infinite;
-  }
-
-  .glow-border:hover::after {
-    opacity: 0.4;
-  }
-
-  @keyframes borderRotate {
-    to { transform: rotate(360deg); }
   }
 
 
@@ -1108,12 +1114,6 @@
     </div>
     <h1 class="hero-title">معيار إدارتك الإعلامية الذكية</h1>
     <p class="hero-subtitle">منصة إعلامية متكاملة تجمع كل أدوات الإعلامي داخل تجربة واحدة، مدعومة بوكلاء الذكاء الاصطناعي</p>
-    <div class="hero-project-link-wrap">
-      <a class="cta-button hero-project-button" href="ملف_المشروع_النهائي.html">
-        <span>ملف المشروع النهائي</span>
-        <i class="fa-solid fa-arrow-left"></i>
-      </a>
-    </div>
     <div class="hero-line"></div>
   </div>
   <div class="scroll-indicator">
@@ -1305,10 +1305,14 @@
     <p class="cta-desc reveal reveal-delay-2">
       جوهر الزمالة الإعلامية الرقمية هو تعزيز الامتثال الإعلامي، وتحفيز المبدعين على ابتكار مشاريع ترتقي بالمحتوى الإعلامي. ومشروع «معيار» يجسّد هذا الهدف؛ لذلك نطمح إلى منحه فرصة التبنّي والدعم، وتحويله من نموذج أولي إلى منصة وطنية مؤثرة.
     </p>
-    <button class="cta-button reveal reveal-delay-3" onclick="showToast()">
-      <span>ابدأ رحلتك الإعلامية</span>
+  
+  </div>
+
+  <div class="final-project-link-wrap reveal reveal-delay-4">
+    <a class="cta-button final-project-button" href="ملف_المشروع_النهائي.html">
+      <span>ملف المشروع النهائي</span>
       <i class="fa-solid fa-arrow-left"></i>
-    </button>
+    </a>
   </div>
 </section>
 
